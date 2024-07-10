@@ -1,0 +1,53 @@
+{
+  "branch": [
+    "cse",
+    "mech",
+    "civil"
+  ],
+  "sem": [
+    "1st sem",
+    "2nd sem",
+    "3rd sem",
+    "4th sem",
+    "5th sem",
+    "6th sem",
+    "7th sem",
+    "8th sem"
+  ],
+  "year": [
+    "2021",
+    "2022",
+    "2023",
+    "2024"
+  ],
+  "sub": [
+    {
+      "subject": [
+        "M1",
+        "Chemistry",
+        "Physics",
+        "pOP",
+        "corn"
+      ],
+      "sem": "1st sem",
+      "branch": "cse"
+    },
+    {
+      "subject": [
+        "DLD",
+        "PPS",
+        "M2"
+      ],
+      "sem": "2nd sem",
+      "branch": "civil"
+    },
+    {
+      "subject": [
+        "hellow",
+        "guys"
+      ],
+      "sem": "3rd sem",
+      "branch": "mech"
+    }
+  ]
+}

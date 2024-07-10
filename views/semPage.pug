@@ -1,0 +1,53 @@
+extend base
+
+mixin semName(name)
+    a(href=`/${branch}/${name.toLowerCase().replace(" ", "_")}` class=`lg:mt-2 xl:mt-0 flex-shrink-0 justify-center inline-flex text-white bg-green-500 border-0 py-4 px-10 focus:outline-none hover:bg-green-600 rounded text-center ${(name === sem)? "bg-red-800" : ""}`) #{name}
+
+mixin subName(name)
+    a(href=`/${branch}/${sem}/${name}` class="lg:mt-2 xl:mt-0 flex-shrink-0 justify-center inline-flex text-white bg-green-500 border-0 py-4 px-10 focus:outline-none hover:bg-green-600 rounded text-center") #{name}
+
+mixin emptyInfo 
+    div(class="flex flex-col h-96 justify-center items-center")
+        if !msg
+            h1(class=`font-bold text-2xl`)= "Content will be right back"
+        else 
+            h1(class=`font-bold text-2xl text-red-500`)= msg
+
+
+block content 
+    main(class="mt-20 grid grid-cols-7 grid-flow-col gap-1 bg-gray-900 text-gray-400")
+        <aside class="hidden md:block md:col-span-2 lg:col-span-1">
+            <div class="flex flex-col gap-3 px-4 overflow-y-auto">
+                each val in semArray ? semArray : []
+                    +semName(val.toUpperCase())
+            </div>
+        </aside>
+        section(class="sm:col-span-5 lg:col-span-6 bg-gray-700")
+            if !data && !subject
+                +emptyInfo
+            else if !data && subject 
+                div(class="flex gap-4 flex-wrap p-4")
+                    each val in subject 
+                        +subName(val)
+            else
+                div(class="lg:overflow-y-scroll lg:max-h-[33rem]")
+                    if data && data.length !== 0
+                        <table class="w-screen md:w-full md:text-sm md:text-left md:rtl:text-right text-gray-500 md:dark:text-gray-400">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                <tr>
+                                    th(scope="col" class="px-6 py-3 w-1/6")= "Year" 
+                                    th(scope="col" class="px-6 py-3 w-auto")= "Name" 
+                                    th(scope="col" class="px-6 py-3 w-1/6")= "View" 
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    each val in data
+                                        tr(class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-base")
+                                            td(class="px-6 py-4") #{val.year}
+                                            th(scope="row" class="px-6 py-4 font-medium text-gray-900 text-base whitespace-nowrap dark:text-white")= `${val.name}`
+                                            td(class="px-6 py-4")
+                                                a(href=`${val.link}` class="text-blue-700 font-bold text-base") Download
+                            </tbody>
+                        </table>
+                    else
+                        +emptyInfo

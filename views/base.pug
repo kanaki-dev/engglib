@@ -1,0 +1,58 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        title Engg Lib
+        script(src="https://cdn.tailwindcss.com")
+        block header
+
+    body.text-gray-400.bg-gray-900.body-font
+        include _nav
+        div.px-10
+            block content
+        script.
+            let loginTag = document.getElementById("loginDiv")
+
+            fetch("/nav")
+                .then(res => res.json())
+                .then(data => {
+                    if(data) {
+                        const usr = document.querySelector("#username")
+
+                        const image = data.image;
+                        const email = data.email;
+                        const username = data.username;
+                        const loggInEd = `
+                                <button id="loggedIn" class="border-2 border-green-600 rounded-full flex title-font font-medium items-center text-white mb-4 md:mb-0">
+                                    <img id="loggedIn" class="w-12 h-12 text-white p-2 rounded-full" src="${image}" />
+                                </button>
+                            `
+                        usr.innerHTML = `<h1 class="text-xl">${username}</h1>`
+                        loginTag.innerHTML = loggInEd;
+
+                        loginTag.addEventListener('click', e => {
+                            let newA = document.querySelector("#its-a")
+                            if(!newA){
+                                newA = document.createElement("a")
+                                newA.id = "its-a";
+                                newA.href = "/api/v1/auth/logout"
+                                newA.textContent = "Logout"
+                                newA.className = "text-black bg-red-500 p-2 rounded-sm"
+                                loginTag.appendChild(newA)
+                            } else {
+                                loginTag.removeChild(newA)
+                            }
+                        })
+
+                        document.addEventListener('click', e => {
+                            const newA = document.querySelector("#its-a")
+                            if(!newA && e.target.id !== "its-a") {
+                                loginTag.removeChild(newA)
+                            }
+                        })
+                    } else {
+                        return;
+                    }})
+                    .catch(err => console.error(err))
+

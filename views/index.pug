@@ -1,0 +1,15 @@
+extend base
+
+mixin branchName(name)
+    a(href=`/${name}` class="lg:mt-2 xl:mt-0 flex-shrink-0 justify-center inline-flex text-white bg-green-500 border-0 py-4 px-10 focus:outline-none hover:bg-green-600 rounded text-center") #{name.toUpperCase()}
+
+
+block content 
+    include wellcome
+    main(class="mt-[5%]")
+        div(class="text-gray-400 bg-gray-900 body-font flex justify-center")
+            div(class="grid grid-cols-2 gap-5")
+                each val in branchArray
+                    +branchName(val)
+
+
